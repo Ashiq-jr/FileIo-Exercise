@@ -1,0 +1,1 @@
+id | name | Category | unitPrice | taxCategory | status
