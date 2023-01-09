@@ -1,1 +1,4 @@
-id | name | Category | unitPrice | taxCategory | status
+101 | Pencil | Stationery | 5 | 12 | active
+102 | Rubber | Stationery | 2 | 12 | active
+103 | Ball Point Pen | Stationery | 5 | 12 | active
+104 | Lays | Snacks | 5 | 5 | active
