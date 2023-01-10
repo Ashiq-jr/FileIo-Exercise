@@ -70,12 +70,13 @@ public class Product {
 
 	}
 	
+	
 	public Product getProductUsingId(int id)
 	{
 		HashMap<Integer, Product> tm = new HashMap<Integer, Product>();
-		Product pr = new Product();
+		Product product = new Product();
 		try {
-			tm = pr.loadData();
+			tm = product.loadData();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -86,14 +87,40 @@ public class Product {
 			{
 				if(id == x)
 				{
-					pr = tm.get(x);
+					product = tm.get(x);
 				}
 			}
 		}
 		
-		return pr;
+		return product;
 		
 	}
+	
+	public Product getProductUsingName(String name)
+	{
+		HashMap<Integer, Product> tm = new HashMap<Integer, Product>();
+		Product product = new Product();
+		Product tempProduct = new Product();
+		try {
+			tm = product.loadData();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		for(Integer x : tm.keySet())
+		{
+			product = tm.get(x);
+			
+			if(product.getName().equals(name))
+			{
+				tempProduct = product;
+			}
+		}
+		return tempProduct;	
+		
+		
+	}
+		
 	
 	@Override
 	public String toString()

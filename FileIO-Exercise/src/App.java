@@ -9,14 +9,14 @@ public class App {
 		
 		// Loading the File Data into HashMap(Product Id, Product).
 		
-		HashMap<Integer, Product> tm = new HashMap<Integer, Product>();
-		Product p = new Product();
-		try {
-			tm = p.loadData();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
+//		HashMap<Integer, Product> tm = new HashMap<Integer, Product>();
+//		Product p = new Product();
+//		try {
+//			tm = p.loadData();
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		
 		// Testing the HashMap For Data.
 		
 //		for(Integer x : tm.keySet())
@@ -28,21 +28,34 @@ public class App {
 		
 		// Method to Return Product Object Given Product Id As Input
 		
-		Product pr = new Product();
-		Product product = null;
+//		Product product = new Product();
+//		
+//		try {
+//			product = product.getProductUsingId(104);
+//			if(product.getName() != null)
+//			{
+//				System.out.println(product);
+//			}
+//			
+//		} catch (NullPointerException e) {
+//			System.out.println("Invalid Key");
+//		}
+		
+		
+		// Method to Return Product Object Given Product Name As Input
+		
+		Product product = new Product();
 		
 		try {
-			product = pr.getProductUsingId(104);
+			product = product.getProductUsingName("Lays");
 			if(product.getName() != null)
 			{
 				System.out.println(product);
-			}
-			
+			}			
 		} catch (NullPointerException e) {
-			System.out.println("Invalid Key");
+			System.out.println("Invalid Product Name ");
 		}
 		
-
 
 	}
 
