@@ -1,5 +1,9 @@
 package product;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Product {
 		
@@ -9,6 +13,33 @@ public class Product {
 	String unitPrice;
 	String taxSlab;
 	String status;
+
+	
+	public String getId() {
+		return id.trim();
+	}
+	public String getName() {
+		return name.trim();
+	}
+	public String getCategory() {
+		return category.trim();
+	}
+	public String getUnitPrice() {
+		return unitPrice.trim();
+	}	
+	public String getTaxSlab() {
+		return taxSlab.trim();
+	}
+	public String getStatus() {
+		return status.trim();
+	}
+
+	
+	
+	public Product() {
+		
+	}
+	
 	
 	public Product(String id, String name, String category, String unitPrice, String taxSlab, String status) {
 		super();
@@ -19,28 +50,26 @@ public class Product {
 		this.taxSlab = taxSlab;
 		this.status = status;
 	}
+	
+	public HashMap<Integer, Product> loadData() throws FileNotFoundException
+	{
+		HashMap<Integer, Product> hm = new HashMap<Integer, Product>();
+		String path = "C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt";
+		File file = new File(path);
+		Scanner sc = new Scanner(file);
+		while(sc.hasNext())
+		{
+			String[] temp = sc.nextLine().split("\\|");
+			Product p = new Product(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5]);
+			String idTemp = p.getId();
+			int id = Integer.parseInt(idTemp.trim());
+			hm.put(id, p);
+		}
+		sc.close();
+		return hm;
+
+	}
+
 
 	
-	public String getId() {
-		return id;
-	}
-	public String getName() {
-		return name;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public String getUnitPrice() {
-		return unitPrice;
-	}	
-	public String getTaxSlab() {
-		return taxSlab;
-	}
-	public String getStatus() {
-		return status;
-	}
-
-
-
-
 }
