@@ -69,6 +69,39 @@ public class Product {
 		return hm;
 
 	}
+	
+	public Product getProductUsingId(int id)
+	{
+		HashMap<Integer, Product> tm = new HashMap<Integer, Product>();
+		Product pr = new Product();
+		try {
+			tm = pr.loadData();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		for(Integer x : tm.keySet())
+		{
+			if(tm.containsKey(id))
+			{
+				if(id == x)
+				{
+					pr = tm.get(x);
+				}
+			}
+		}
+		
+		return pr;
+		
+	}
+	
+	@Override
+	public String toString()
+	{
+		return this.id +  " " + this.name + " " + this.category + " " + this.unitPrice + " " + this.taxSlab + " " + this.status;
+	}
+	
+	
 
 
 	

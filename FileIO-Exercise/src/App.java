@@ -19,12 +19,30 @@ public class App {
 		
 		// Testing the HashMap For Data.
 		
-		for(Integer x : tm.keySet())
-		{
-			Product p1 = tm.get(x);
-			System.out.println (x + " " + p1.getName() + " " + p1.getCategory() + " " + p1.getUnitPrice() + " " + p1.getTaxSlab() + " " + p1.getStatus());
+//		for(Integer x : tm.keySet())
+//		{
+//			Product p1 = tm.get(x);
+//			System.out.println(p1);
+//		}
+//		
+		
+		// Method to Return Product Object Given Product Id As Input
+		
+		Product pr = new Product();
+		Product product = null;
+		
+		try {
+			product = pr.getProductUsingId(104);
+			if(product.getName() != null)
+			{
+				System.out.println(product);
+			}
+			
+		} catch (NullPointerException e) {
+			System.out.println("Invalid Key");
 		}
 		
+
 
 	}
 
