@@ -2,7 +2,9 @@ package product;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class Product {
@@ -117,8 +119,27 @@ public class Product {
 			}
 		}
 		return tempProduct;	
+				
+	}
+	
+	public List<Product> getProductList()
+	{
+		HashMap<Integer, Product> tm = new HashMap<Integer, Product>();
+		List<Product> prodlist = new ArrayList<Product>();
+		Product product = new Product();
+		try {
+			tm = product.loadData();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
+		for(Integer x : tm.keySet())
+		{
+			product = tm.get(x);
+			prodlist.add(product);
+		}
 		
+		return prodlist;
 	}
 		
 	

@@ -1,5 +1,7 @@
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import product.Product;
 
@@ -44,17 +46,29 @@ public class App {
 		
 		// Method to Return Product Object Given Product Name As Input
 		
-		Product product = new Product();
+//		Product product = new Product();
+//		
+//		try {
+//			product = product.getProductUsingName("Lays");
+//			if(product.getName() != null)
+//			{
+//				System.out.println(product);
+//			}			
+//		} catch (NullPointerException e) {
+//			System.out.println("Invalid Product Name ");
+//		}
 		
-		try {
-			product = product.getProductUsingName("Lays");
-			if(product.getName() != null)
-			{
-				System.out.println(product);
-			}			
-		} catch (NullPointerException e) {
-			System.out.println("Invalid Product Name ");
+		// Method to Return Product List 
+		
+		Product product = new Product();
+		List<Product> list = product.getProductList();
+		
+		for(Product x : list)
+		{
+			System.out.println(x.getId() + " " + x.getName() + " " + x.getCategory() + " " + x.getUnitPrice() + " " + x.getTaxSlab() + " " + x.getStatus() );
 		}
+		
+		
 		
 
 	}
