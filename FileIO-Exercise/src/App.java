@@ -21,14 +21,14 @@ public class App {
 //			e.printStackTrace();
 //		}
 //		
-		// Testing the HashMap For Data.
-		
+//		// Testing the HashMap For Data.
+//		
 //		for(Integer x : tm.keySet())
 //		{
 //			Product p1 = tm.get(x);
 //			System.out.println(p1);
 //		}
-//		
+		
 		
 		// Method to Return Product Object Given Product Id As Input
 		
@@ -51,7 +51,7 @@ public class App {
 //		Product product = new Product();
 //		
 //		try {
-//			product = product.getProductUsingName("Lays");
+//			product = product.getProductUsingName("Rubber");
 //			if(product.getName() != null)
 //			{
 //				System.out.println(product);
@@ -63,7 +63,7 @@ public class App {
 		
 		// Method to Return Product List 
 		
-		Product product = new Product();
+//		Product product = new Product();
 //		List<Product> list = product.getProductList();
 //		
 //		for(Product x : list)
@@ -72,31 +72,31 @@ public class App {
 //		}
 		
 		// Method to Add Product
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter Name : ");
-		String name = sc.nextLine();
-		System.out.println("Enter Category : ");
-		String category = sc.nextLine();
-		System.out.println("Enter Unit Price : ");
-		String price = sc.nextLine();
-		System.out.println("Enter Tax Slab : ");
-		String tax = sc.nextLine();
 		
-		if(product.isTheProductExists((name)))
-		{
-			System.out.println("Product Already Exists");
-		}
-		else
-		{
-			System.out.println("product added");
-		}
-	
-		sc.close();
+//		Scanner sc = new Scanner(System.in);
+//		System.out.println("Enter Name : ");
+//		String name = sc.nextLine();
+//		System.out.println("Enter Category : ");
+//		String category = sc.nextLine();
+//		System.out.println("Enter Unit Price : ");
+//		String price = sc.nextLine();
+//		System.out.println("Enter Tax Slab : ");
+//		String tax = sc.nextLine();
+//		
+//		if(product.isTheProductExists((name)))
+//		{
+//			System.out.println("Product Already Exists");
+//		}
+//		else
+//		{
+//			System.out.println("product added");
+//		}
+//	
+//		sc.close();
+//		
+//		product.addProduct(name, category, price, tax);
 		
-		product.addProduct(name, category, price, tax);
-		
-		
-		
+
 		
 		
 
