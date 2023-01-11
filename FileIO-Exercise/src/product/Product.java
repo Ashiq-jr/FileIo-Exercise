@@ -2,6 +2,8 @@ package product;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -140,6 +142,61 @@ public class Product {
 		}
 		
 		return prodlist;
+	}
+	
+	public void addProduct(String name, String category, String unitPrice, String taxSlab) throws IOException
+	{
+		String path = "C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt";	
+		if(!this.isTheProductExists(name))
+		{
+			String status = "active";
+			String id = this.generateNewProductID();
+			FileWriter writer = new FileWriter(path,true);
+			writer.write("\n" + id + " | " + name + " | " + category + " | " + unitPrice + " | " + taxSlab + " | " + status);
+			writer.close();
+		}
+		
+				
+	}
+	
+	public List<String> getNameList()
+	{
+		List<String> nameList = new ArrayList<String>();
+		List<Product> prodList = this.getProductList();
+		
+		for(Product x : prodList)
+		{
+			nameList.add(x.getName());			
+		}
+		
+		return nameList;
+	}
+	
+	public boolean isTheProductExists(String name)
+	{
+		List<String> nameList = this.getNameList();
+		for(String x : nameList)
+		{
+			if(x.equals(name))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public String generateNewProductID()
+	{
+		List<Product> prodList = this.getProductList();
+		String id = "";
+		
+		for(Product x : prodList)
+		{
+			id = x.getId();			
+		}
+		String tempId = String.valueOf(Integer.parseInt(id) + 1);
+		return tempId;
+		
 	}
 		
 	

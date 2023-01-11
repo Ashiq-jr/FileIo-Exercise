@@ -1,13 +1,15 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 import product.Product;
 
 public class App {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		// Loading the File Data into HashMap(Product Id, Product).
 		
@@ -58,15 +60,42 @@ public class App {
 //			System.out.println("Invalid Product Name ");
 //		}
 		
+		
 		// Method to Return Product List 
 		
 		Product product = new Product();
-		List<Product> list = product.getProductList();
+//		List<Product> list = product.getProductList();
+//		
+//		for(Product x : list)
+//		{
+//			System.out.println(x);
+//		}
 		
-		for(Product x : list)
+		// Method to Add Product
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Name : ");
+		String name = sc.nextLine();
+		System.out.println("Enter Category : ");
+		String category = sc.nextLine();
+		System.out.println("Enter Unit Price : ");
+		String price = sc.nextLine();
+		System.out.println("Enter Tax Slab : ");
+		String tax = sc.nextLine();
+		
+		if(product.isTheProductExists((name)))
 		{
-			System.out.println(x.getId() + " " + x.getName() + " " + x.getCategory() + " " + x.getUnitPrice() + " " + x.getTaxSlab() + " " + x.getStatus() );
+			System.out.println("Product Already Exists");
 		}
+		else
+		{
+			System.out.println("product added");
+		}
+	
+		sc.close();
+		
+		product.addProduct(name, category, price, tax);
+		
+		
 		
 		
 		
