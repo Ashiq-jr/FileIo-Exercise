@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +29,7 @@ enum TaxSlab
 	{
 		return this.amount;
 	}
-	
-	        
+		        
 }
 
 enum Status
@@ -79,6 +81,7 @@ public class Product {
 		return TaxSlab.valueOf(taxSlab).getAmount();
 	}
 
+
 	
 	
 	public Product() {
@@ -106,7 +109,7 @@ public class Product {
 		while(sc.hasNext())
 		{
 			String[] temp = sc.nextLine().split("\\|");
-			Product p = new Product(temp[0].trim(), temp[1].trim(), temp[2].trim(), temp[3].trim(), TaxSlab.valueOf(temp[4].trim()), Status.valueOf(temp[5].trim()));
+			Product p = new Product(temp[0], temp[1], temp[2], temp[3], TaxSlab.valueOf(temp[4]), Status.valueOf(temp[5]));
 			String idTemp = p.getId();
 			int id = Integer.parseInt(idTemp.trim());
 			hm.put(id, p);
@@ -192,12 +195,12 @@ public class Product {
 	public void addProduct(String name, String category, String unitPrice, String taxSlab) throws IOException
 	{
 		String path = "C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt";	
-		if(!this.isTheProductExists(name))
+		if(!this.doesTheNameExists(name))
 		{
 			String status = "Active";
 			String id = this.generateNewProductID();
 			FileWriter writer = new FileWriter(path,true);
-			writer.write("\n" + id + " | " + name + " | " + category + " | " + unitPrice + " | " + TaxSlab.valueOf(taxSlab) + " | " + Status.valueOf(status));
+			writer.write("\n" + id + "|" + name + "|" + category + "|" + unitPrice + "|" + TaxSlab.valueOf(taxSlab) + "|" + Status.valueOf(status));
 			writer.close();
 		}
 		
@@ -218,13 +221,39 @@ public class Product {
 		return nameList;
 	}
 	
+	public List<String> getIdList()
+	{
+		List<String> idList = new ArrayList<String>();
+		List<Product> prodList = this.getProductList();
+		
+		for(Product x : prodList)
+		{
+			idList.add(x.getId());			
+		}
+		
+		return idList;
+	}
 	
-	public boolean isTheProductExists(String name)
+	
+	public boolean doesTheNameExists(String name)
 	{
 		List<String> nameList = this.getNameList();
 		for(String x : nameList)
 		{
 			if(x.equals(name))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean doesTheIdExists(int id)
+	{
+		List<String> idList = this.getIdList();
+		for(String x : idList)
+		{
+			if(x.equals(String.valueOf(id)))
 			{
 				return true;
 			}
@@ -245,7 +274,25 @@ public class Product {
 		String tempId = String.valueOf(Integer.parseInt(id) + 1);
 		return tempId;
 		
+	}	
+	
+	public void editUnitPriceAndTaxSlab(int id, String unitPrice, String taxSlab) throws IOException
+	{
+		if(this.doesTheIdExists(id))
+		{
+			String newDetails = "";		
+			Path path = Paths.get("C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt");
+			List<String> lines = Files.readAllLines(path);
+		
+			Product pr = this.getProductUsingId(id);
+			newDetails += pr.getId() + "|" + pr.getName() + "|" + pr.getCategory() + "|" + unitPrice + "|" + taxSlab + "|" + pr.getStatus();
+			lines.set(id-101, newDetails);
+			
+			Files.write(path, lines);
+		}
+		
 	}
+	
 	
 	
 	@Override

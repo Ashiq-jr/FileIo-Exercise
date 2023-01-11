@@ -1,11 +1,12 @@
-101 | Pencil | Stationery | 5 | Mid | Active
-102 | Rubber | Stationery | 2 | Mid | Active
-103 | BallPointPen | Stationery | 5 | Mid | Active
-104 | Lays | Snacks | 5 | Low | Active
-105 | Bingo | Snacks | 5 | Low | DisContinued
-106 | Mouse | Electronics | 100 | Mid | Active
-107 | Pendrice-32gb | Electronics | 300 | Mid | Active
-108 | Popcorn | Snacks | 15 | Low | Active
-109 | Maaza | Juice | 50 | Mid | Active
-110 | TableFan | Electricals | 2500 | High | Active
-111 | iphone-14 | Electronics | 69999 | High | Active
+101|Pencil|Stationery|1500|Mid|Active
+102|Rubber|Stationery|2|Mid|Active
+103|BallPointPen|Stationery|5|Mid|Active
+104|Lays|Snacks|5|Low|Active
+105|Bingo|Snacks|5|Low|DisContinued
+106|Mouse|Electronics|100|Mid|Active
+107|Pendrice-32gb|Electronics|300|Mid|Active
+108|Popcorn|Snacks|15|Low|Active
+109|Maaza|Juice|50|Mid|Active
+110|TableFan|Electricals|1001|High|Active
+111|iphone-14|Electronics|69999|High|Active
+112|Battery|Electronics|15|Mid|Active

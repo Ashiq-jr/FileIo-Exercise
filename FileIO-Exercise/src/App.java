@@ -35,7 +35,7 @@ public class App {
 //		Product product = new Product();
 //		
 //		try {
-//			product = product.getProductUsingId(104);
+//			product = product.getProductUsingId(111);
 //			if(product.getName() != null)
 //			{
 //				System.out.println(product);
@@ -51,7 +51,7 @@ public class App {
 //		Product product = new Product();
 //		
 //		try {
-//			product = product.getProductUsingName("Rubber");
+//			product = product.getProductUsingName("BallPointPen");
 //			if(product.getName() != null)
 //			{
 //				System.out.println(product);
@@ -59,11 +59,11 @@ public class App {
 //		} catch (NullPointerException e) {
 //			System.out.println("Invalid Product Name ");
 //		}
-		
+//		
 		
 		// Method to Return Product List 
 		
-//		Product product = new Product();
+		Product product = new Product();
 //		List<Product> list = product.getProductList();
 //		
 //		for(Product x : list)
@@ -83,18 +83,36 @@ public class App {
 //		System.out.println("Enter Tax Slab : ");
 //		String tax = sc.nextLine();
 //		
-//		if(product.isTheProductExists((name)))
+//		if(product.doesTheNameExists((name)))
 //		{
 //			System.out.println("Product Already Exists");
+//			
 //		}
 //		else
 //		{
 //			System.out.println("product added");
+//			product.addProduct(name, category, price, tax);
 //		}
 //	
 //		sc.close();
-//		
-//		product.addProduct(name, category, price, tax);
+		
+		
+		
+		//Method to Edit UnitPrice and Tax Slab
+		
+		if(product.doesTheIdExists(114))
+		{
+			product.editUnitPriceAndTaxSlab(114, "15", "Mid");
+			System.out.println("Unit Price and Tax Slab Updated.");
+		}
+		else
+		{
+			System.out.println("Invalid Id");
+		}
+		
+		
+		
+		
 		
 
 		
