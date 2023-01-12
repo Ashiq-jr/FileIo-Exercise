@@ -100,15 +100,42 @@ public class App {
 		
 		//Method to Edit UnitPrice and Tax Slab
 		
-		if(product.doesTheIdExists(114))
+//		if(product.doesTheIdExists(104) && product.doesTheTaxSlabExists("Low"))
+//		{
+//			product.editUnitPriceAndTaxSlab(104, "5", "Low");
+//			System.out.println("Unit Price and Tax Slab Updated.");
+//		}
+//		else
+//		{
+//			System.out.println("Invalid Id/Slab");
+//		}
+//		
+		
+		// To Check And Update the Status of The Product
+		
+		String status = product.checkStatusUsingId(102);
+		System.out.println(status);
+		if(status.equals("Active"))
 		{
-			product.editUnitPriceAndTaxSlab(114, "15", "Mid");
-			System.out.println("Unit Price and Tax Slab Updated.");
+			System.out.println("press 1 to DisContinue Product");
+		}
+		else if(status.equals("DisContinued"))
+		{
+			System.out.println("press 1 to Activate Product");
 		}
 		else
 		{
-			System.out.println("Invalid Id");
+			System.out.println("Invalid ID");
 		}
+		Scanner sc = new Scanner(System.in);
+		if(sc.nextInt() == 1)
+		{
+			product.updateTheStatus(102);
+			System.out.println("Updated the Status of the Product ");
+		}
+		sc.close();
+		
+	
 		
 		
 		

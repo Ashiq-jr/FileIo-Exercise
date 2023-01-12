@@ -1,4 +1,4 @@
-101|Pencil|Stationery|1500|Mid|Active
+101|Pencil|Stationery|1500|Mid|DisContinued
 102|Rubber|Stationery|2|Mid|Active
 103|BallPointPen|Stationery|5|Mid|Active
 104|Lays|Snacks|5|Low|Active

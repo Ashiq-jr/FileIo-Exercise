@@ -29,6 +29,7 @@ enum TaxSlab
 	{
 		return this.amount;
 	}
+	
 		        
 }
 
@@ -261,6 +262,32 @@ public class Product {
 		return false;
 	}
 	
+	public boolean doesTheTaxSlabExists(String taxSlab)
+	{
+		TaxSlab[] tList = TaxSlab.values();
+		for(TaxSlab x : tList)
+		{
+			if(x.toString().equals(taxSlab))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean doesTheStatusExists(String status)
+	{
+		Status[] sList = Status.values();
+		for(Status x : sList)
+		{
+			if(x.toString().equals(status))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	
 	public String generateNewProductID()
 	{
@@ -278,7 +305,7 @@ public class Product {
 	
 	public void editUnitPriceAndTaxSlab(int id, String unitPrice, String taxSlab) throws IOException
 	{
-		if(this.doesTheIdExists(id))
+		if(this.doesTheIdExists(id) && this.doesTheTaxSlabExists(taxSlab))
 		{
 			String newDetails = "";		
 			Path path = Paths.get("C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt");
@@ -286,6 +313,48 @@ public class Product {
 		
 			Product pr = this.getProductUsingId(id);
 			newDetails += pr.getId() + "|" + pr.getName() + "|" + pr.getCategory() + "|" + unitPrice + "|" + taxSlab + "|" + pr.getStatus();
+			lines.set(id-101, newDetails);
+			
+			Files.write(path, lines);
+		}
+		
+	}
+	
+	public String checkStatusUsingId(int id)
+	{
+		String status = "";
+		List<Product> pList = this.getProductList();
+		
+		for(Product x : pList)
+		{
+			if(x.getId().equals(String.valueOf(id)))
+			{
+				status = x.getStatus().toString();
+			}
+		}
+		
+		return status;
+	}
+	
+	public void updateTheStatus(int id) throws IOException
+	{
+		if(this.doesTheIdExists(id))
+		{
+			String status = this.checkStatusUsingId(id);
+			if(status.equals("Active"))
+			{
+				status = "DisContinued";
+			}
+			else
+			{
+				status = "Active";
+			}
+			String newDetails = "";		
+			Path path = Paths.get("C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt");
+			List<String> lines = Files.readAllLines(path);
+		
+			Product pr = this.getProductUsingId(id);
+			newDetails += pr.getId() + "|" + pr.getName() + "|" + pr.getCategory() + "|" + pr.getUnitPrice() + "|" + pr.getTaxSlab() + "|" + status;
 			lines.set(id-101, newDetails);
 			
 			Files.write(path, lines);
