@@ -362,6 +362,36 @@ public class Product {
 		
 	}
 	
+	public List<String> getActiveProductsList()
+	{
+		List<Product> pList = this.getProductList();
+		List<String> actList = new ArrayList<String>();
+		for(Product x : pList)
+		{
+			if(x.getStatus().toString().equals("Active"))
+			{
+				actList.add(x.getName());
+			}
+		}
+		return actList;
+	}
+	
+	public List<String> getDisContinuedProductsList()
+	{
+		List<Product> pList = this.getProductList();
+		List<String> disConList = new ArrayList<String>();
+		for(Product x : pList)
+		{
+			if(x.getStatus().toString().equals("DisContinued"))
+			{
+				disConList.add(x.getName());
+			}
+		}
+		return disConList;
+	}
+	
+	
+	
 	
 	
 	@Override

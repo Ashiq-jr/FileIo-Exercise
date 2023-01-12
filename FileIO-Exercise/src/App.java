@@ -113,27 +113,38 @@ public class App {
 		
 		// To Check And Update the Status of The Product
 		
-		String status = product.checkStatusUsingId(102);
-		System.out.println(status);
-		if(status.equals("Active"))
-		{
-			System.out.println("press 1 to DisContinue Product");
-		}
-		else if(status.equals("DisContinued"))
-		{
-			System.out.println("press 1 to Activate Product");
-		}
-		else
-		{
-			System.out.println("Invalid ID");
-		}
-		Scanner sc = new Scanner(System.in);
-		if(sc.nextInt() == 1)
-		{
-			product.updateTheStatus(102);
-			System.out.println("Updated the Status of the Product ");
-		}
-		sc.close();
+//		String status = product.checkStatusUsingId(102);
+//		System.out.println(status);
+//		if(status.equals("Active"))
+//		{
+//			System.out.println("press 1 to DisContinue Product");
+//		}
+//		else if(status.equals("DisContinued"))
+//		{
+//			System.out.println("press 1 to Activate Product");
+//		}
+//		else
+//		{
+//			System.out.println("Invalid ID");
+//		}
+//		Scanner sc = new Scanner(System.in);
+//		if(sc.nextInt() == 1)
+//		{
+//			product.updateTheStatus(102);
+//			System.out.println("Updated the Status of the Product ");
+//		}
+//		sc.close();
+		
+		
+		// Methods to Get The Name List of Active Products and List of DisContinued Products
+		
+		List<String> actList= product.getActiveProductsList();
+		
+		System.out.println(actList);
+		
+		List<String> disConList= product.getDisContinuedProductsList();
+		
+		System.out.println(disConList);
 		
 	
 		
