@@ -50,27 +50,37 @@ enum Status
 	}
 }
 
-
 public class Product {
 		
-	String id;
+	int id;
 	String name;
 	String category;
 	String unitPrice;
 	TaxSlab taxSlab;
-	Status status;
+	Status status;	
 	
-	public String getId() {
-		return id.trim();
+	static String path = "C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt\\";
+	static HashMap<Integer, Product> hMap = new HashMap<Integer, Product>();
+	static List<Product> prodList = new ArrayList<Product>();
+	static List<String> nameList = new ArrayList<String>();
+	static List<Integer> idList = new ArrayList<Integer>();
+	static List<String> actList = new ArrayList<String>();
+	static List<String> disConList = new ArrayList<String>();
+	
+
+	//Getter for Fields
+	
+	public int getId() {
+		return id;
 	}
 	public String getName() {
-		return name.trim();
+		return name;
 	}
 	public String getCategory() {
-		return category.trim();
+		return category;
 	}
 	public String getUnitPrice() {
-		return unitPrice.trim();
+		return unitPrice;
 	}	
 	public TaxSlab getTaxSlab() {
 		return taxSlab;
@@ -84,12 +94,13 @@ public class Product {
 
 
 	
+	//Constructors
 	
 	public Product() {
 		
 	}
 		
-	public Product(String id, String name, String category, String unitPrice, TaxSlab taxSlab, Status status) {
+	public Product(int id, String name, String category, String unitPrice, TaxSlab taxSlab, Status status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -100,44 +111,42 @@ public class Product {
 	}
 	
 	
+	//Method to Load Data From File into A HashMap
 	
 	public HashMap<Integer, Product> loadData() throws FileNotFoundException
 	{
-		HashMap<Integer, Product> hm = new HashMap<Integer, Product>();
-		String path = "C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt";
 		File file = new File(path);
 		Scanner sc = new Scanner(file);
 		while(sc.hasNext())
 		{
 			String[] temp = sc.nextLine().split("\\|");
-			Product p = new Product(temp[0], temp[1], temp[2], temp[3], TaxSlab.valueOf(temp[4]), Status.valueOf(temp[5]));
-			String idTemp = p.getId();
-			int id = Integer.parseInt(idTemp.trim());
-			hm.put(id, p);
+			Product p = new Product(Integer.parseInt(temp[0]), temp[1], temp[2], temp[3], TaxSlab.valueOf(temp[4]), Status.valueOf(temp[5]));
+			int id = p.getId();
+			hMap.put(id, p);
 		}
 		sc.close();
-		return hm;
+		return hMap;
 
 	}
 	
+	//Method to Get Object of A Particular Product Using the Product Id.
 	
 	public Product getProductUsingId(int id)
 	{
-		HashMap<Integer, Product> tm = new HashMap<Integer, Product>();
 		Product product = new Product();
 		try {
-			tm = product.loadData();
+			hMap = product.loadData();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		for(Integer x : tm.keySet())
+		for(Integer x : hMap.keySet())
 		{
-			if(tm.containsKey(id))
+			if(hMap.containsKey(id))
 			{
 				if(id == x)
 				{
-					product = tm.get(x);
+					product = hMap.get(x);
 				}
 			}
 		}
@@ -146,21 +155,21 @@ public class Product {
 		
 	}
 	
+	//Method to Get Object of A Particular Product Using the Name.
 	
 	public Product getProductUsingName(String name)
 	{
-		HashMap<Integer, Product> tm = new HashMap<Integer, Product>();
 		Product product = new Product();
 		Product tempProduct = new Product();
 		try {
-			tm = product.loadData();
+			hMap = product.loadData();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		for(Integer x : tm.keySet())
+		for(Integer x : hMap.keySet())
 		{
-			product = tm.get(x);
+			product = hMap.get(x);
 			
 			if(product.getName().equals(name))
 			{
@@ -171,48 +180,47 @@ public class Product {
 				
 	}
 	
+	// Method to Load List of Product Objects 
 	
 	public List<Product> getProductList()
 	{
-		HashMap<Integer, Product> tm = new HashMap<Integer, Product>();
-		List<Product> prodlist = new ArrayList<Product>();
 		Product product = new Product();
 		try {
-			tm = product.loadData();
+			hMap = product.loadData();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		for(Integer x : tm.keySet())
+		for(Integer x : hMap.keySet())
 		{
-			product = tm.get(x);
-			prodlist.add(product);
+			product = hMap.get(x);
+			prodList.add(product);
 		}
 		
-		return prodlist;
+		return prodList;
 	}
 	
+	// Method to Add New Product
 	
 	public void addProduct(String name, String category, String unitPrice, String taxSlab) throws IOException
 	{
-		String path = "C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt";	
 		if(!this.doesTheNameExists(name))
 		{
 			String status = "Active";
-			String id = this.generateNewProductID();
+			int id = this.generateNewProductID();
 			FileWriter writer = new FileWriter(path,true);
 			writer.write("\n" + id + "|" + name + "|" + category + "|" + unitPrice + "|" + TaxSlab.valueOf(taxSlab) + "|" + Status.valueOf(status));
 			writer.close();
-		}
-		
+		}		
 				
 	}
 	
+	// Method to Get the Name List of All the Products
 	
 	public List<String> getNameList()
 	{
-		List<String> nameList = new ArrayList<String>();
-		List<Product> prodList = this.getProductList();
+		prodList.clear();
+		prodList = this.getProductList();
 		
 		for(Product x : prodList)
 		{
@@ -222,23 +230,27 @@ public class Product {
 		return nameList;
 	}
 	
-	public List<String> getIdList()
-	{
-		List<String> idList = new ArrayList<String>();
-		List<Product> prodList = this.getProductList();
-		
+	// Method to Get the Id List of All the Products
+	
+	public List<Integer> getIdList()
+	{	
+		prodList.clear();
+		prodList = this.getProductList();
 		for(Product x : prodList)
 		{
 			idList.add(x.getId());			
 		}
 		
+		idList.sort(null);
 		return idList;
 	}
 	
+	// Method to Check if a Product Name Exists
 	
 	public boolean doesTheNameExists(String name)
 	{
-		List<String> nameList = this.getNameList();
+		nameList.clear();
+		nameList = this.getNameList();
 		for(String x : nameList)
 		{
 			if(x.equals(name))
@@ -249,18 +261,23 @@ public class Product {
 		return false;
 	}
 	
+	// Method to Check if a Product Id Exists
+	
 	public boolean doesTheIdExists(int id)
 	{
-		List<String> idList = this.getIdList();
-		for(String x : idList)
+		idList.clear();
+		idList = this.getIdList();
+		for(int x : idList)
 		{
-			if(x.equals(String.valueOf(id)))
+			if(x == id)
 			{
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	// Method to Check if the Given Tax Slab Exists
 	
 	public boolean doesTheTaxSlabExists(String taxSlab)
 	{
@@ -275,6 +292,8 @@ public class Product {
 		return false;
 	}
 	
+	// Method to Check if the Given Status Exists
+	
 	public boolean doesTheStatusExists(String status)
 	{
 		Status[] sList = Status.values();
@@ -288,46 +307,67 @@ public class Product {
 		return false;
 	}
 	
+	// Method to Generate New Product Id Based on the Existing Ones.
 	
-	public String generateNewProductID()
+	public int generateNewProductID()
 	{
-		List<Product> prodList = this.getProductList();
-		String id = "";
-		
-		for(Product x : prodList)
+		int id = 0;
+		idList.clear();
+		idList = this.getIdList();
+		for(int x : idList)
 		{
-			id = x.getId();			
+			if(x > id)
+			{
+				id = x;	
+			}
+					
 		}
-		String tempId = String.valueOf(Integer.parseInt(id) + 1);
-		return tempId;
+		id++;
+		return id;
 		
 	}	
+	
+	// Method to Edit The Tax Slab And Unit Price of A Existing Product.
 	
 	public void editUnitPriceAndTaxSlab(int id, String unitPrice, String taxSlab) throws IOException
 	{
 		if(this.doesTheIdExists(id) && this.doesTheTaxSlabExists(taxSlab))
 		{
 			String newDetails = "";		
-			Path path = Paths.get("C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt");
-			List<String> lines = Files.readAllLines(path);
+			Path path1 = Paths.get(path);
+			List<String> lines = Files.readAllLines(path1);
 		
 			Product pr = this.getProductUsingId(id);
 			newDetails += pr.getId() + "|" + pr.getName() + "|" + pr.getCategory() + "|" + unitPrice + "|" + taxSlab + "|" + pr.getStatus();
+			newDetails = newDetails.trim();
 			lines.set(id-101, newDetails);
 			
-			Files.write(path, lines);
+			StringBuffer buffer = new StringBuffer();
+			FileWriter writer = new FileWriter(path);
+			for(int i = 0; i < lines.size(); i++)
+			{			
+				buffer.append(lines.get(i) + System.lineSeparator());								
+			}
+			String temp = buffer.toString().trim();
+			writer.write(temp);
+			writer.close();
+			
+			
 		}
 		
 	}
 	
+	// Method to Check the Current Status of A Product Given its Id.
+	
 	public String checkStatusUsingId(int id)
 	{
 		String status = "";
-		List<Product> pList = this.getProductList();
+		prodList.clear();
+		prodList = this.getProductList();
 		
-		for(Product x : pList)
+		for(Product x : prodList)
 		{
-			if(x.getId().equals(String.valueOf(id)))
+			if(x.getId() == id)
 			{
 				status = x.getStatus().toString();
 			}
@@ -336,37 +376,45 @@ public class Product {
 		return status;
 	}
 	
+	// Method to Update the Current Status of A Product Given Its Id.
+	
 	public void updateTheStatus(int id) throws IOException
 	{
 		if(this.doesTheIdExists(id))
 		{
 			String status = this.checkStatusUsingId(id);
-			if(status.equals("Active"))
-			{
-				status = "DisContinued";
-			}
-			else
-			{
-				status = "Active";
-			}
-			String newDetails = "";		
-			Path path = Paths.get("C:\\Users\\ashiq\\git\\FileIo-Repository\\FileIO-Exercise\\src\\resources\\product.txt");
-			List<String> lines = Files.readAllLines(path);
+			status = status.equals("Active") ? "DisContinued" : "Active";
+			
+			String newDetails = "";					
+			Path path1 = Paths.get(path);
+			List<String> lines = Files.readAllLines(path1);
 		
 			Product pr = this.getProductUsingId(id);
 			newDetails += pr.getId() + "|" + pr.getName() + "|" + pr.getCategory() + "|" + pr.getUnitPrice() + "|" + pr.getTaxSlab() + "|" + status;
-			lines.set(id-101, newDetails);
+			newDetails = newDetails.trim();
+			lines.set(id-101, newDetails);			
+
+			FileWriter writer = new FileWriter(path);
+			StringBuffer buffer = new StringBuffer();
+			for(int i = 0; i < lines.size(); i++)
+			{			
+				buffer.append(lines.get(i) + System.lineSeparator());								
+			}
+			String temp = buffer.toString().trim();
+			writer.write(temp);
+			writer.close();
 			
-			Files.write(path, lines);
 		}
 		
 	}
 	
+	// Method to Get the List Of Products that is Currently Active.
+	
 	public List<String> getActiveProductsList()
 	{
-		List<Product> pList = this.getProductList();
-		List<String> actList = new ArrayList<String>();
-		for(Product x : pList)
+		prodList.clear();
+		prodList = this.getProductList();		
+		for(Product x : prodList)
 		{
 			if(x.getStatus().toString().equals("Active"))
 			{
@@ -376,11 +424,13 @@ public class Product {
 		return actList;
 	}
 	
+	// Method to Get the List Of Products that are DisContinued.
+	
 	public List<String> getDisContinuedProductsList()
 	{
-		List<Product> pList = this.getProductList();
-		List<String> disConList = new ArrayList<String>();
-		for(Product x : pList)
+		prodList.clear();
+		prodList = this.getProductList();
+		for(Product x : prodList)
 		{
 			if(x.getStatus().toString().equals("DisContinued"))
 			{
